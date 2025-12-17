@@ -1,14 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchMovies } from "../hooks/useSearchMovies";
 import MovieCard from "../components/MovieCard";
 import MovieSkeleton from "../components/MovieSkeleton";
+import Pagination from "../components/Pagination";
 
 export default function Search() {
   const [query, setQuery] = useState("");
-  const { movies, loading, error } = useSearchMovies(
+  const [page, setPage] = useState(1);
+  const { movies, loading, error, totalPages } = useSearchMovies(
     import.meta.env.VITE_TMDB_API_KEY,
-    query
+    query,
+    page
   );
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [page]);
 
   return (
     <div className="p-4">
@@ -17,7 +24,10 @@ export default function Search() {
       <input
         type="text"
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={(e) => {
+          setQuery(e.target.value);
+          setPage(1);
+        }}
         placeholder="Search for a movie..."
         className="border rounded p-2 w-full mb-4"
       />
@@ -25,17 +35,41 @@ export default function Search() {
       {error ? (
         <p className="text-red-600">Error: {error}</p>
       ) : loading ? (
-        <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <MovieSkeleton key={i} />
-          ))}
-        </ul>
+        <>
+          <Pagination
+            page={page}
+            onPageChange={setPage}
+            hasNext={page < totalPages}
+          />
+          <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <MovieSkeleton key={i} />
+            ))}
+          </ul>
+          <Pagination
+            page={page}
+            onPageChange={setPage}
+            hasNext={page < totalPages}
+          />
+        </>
       ) : movies.length > 0 ? (
-        <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-          {movies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
-          ))}
-        </ul>
+        <>
+          <Pagination
+            page={page}
+            onPageChange={setPage}
+            hasNext={page < totalPages}
+          />
+          <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            {movies.map((movie) => (
+              <MovieCard key={movie.id} movie={movie} />
+            ))}
+          </ul>
+          <Pagination
+            page={page}
+            onPageChange={setPage}
+            hasNext={page < totalPages}
+          />
+        </>
       ) : query ? (
         <p>No movies found for "{query}".</p>
       ) : (

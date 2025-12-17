@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getPopularMovies } from "../api/tmdb";
 import type { Movie } from "../types/movie";
 
-export function usePopularMovies(apiKey: string) {
+export function usePopularMovies(apiKey: string, page: number) {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -13,7 +13,7 @@ export function usePopularMovies(apiKey: string) {
       setError(null);
 
       try {
-        const result = await getPopularMovies(apiKey);
+        const result = await getPopularMovies(apiKey, page);
         setMovies(result.results);
       } catch (err: unknown) {
         setError(err instanceof Error ? err.message : "Unexpected error");
@@ -23,7 +23,7 @@ export function usePopularMovies(apiKey: string) {
     };
 
     fetchMovies();
-  }, []);
+  }, [page]);
 
   return { movies, loading, error };
 }
