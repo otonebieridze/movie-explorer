@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { usePopularMovies } from "../hooks/usePopularMovies";
 import MovieCard from "../components/MovieCard";
 import MovieSkeleton from "../components/MovieSkeleton";
-import Pagination from "../components/Pagination";
+import PageSection from "../components/PageSection";
 
 export default function Home() {
   const [page, setPage] = useState(1);
@@ -22,25 +22,21 @@ export default function Home() {
       {error ? (
         <p className="text-red-600">Error: {error}</p>
       ) : loading ? (
-        <>
-          <Pagination page={page} onPageChange={setPage} hasNext={page < 10} />
+        <PageSection page={page} onPageChange={setPage} hasNext={page < 10}>
           <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
             {Array.from({ length: 8 }).map((_, i) => (
               <MovieSkeleton key={i} />
             ))}
           </ul>
-          <Pagination page={page} onPageChange={setPage} hasNext={page < 10} />
-        </>
+        </PageSection>
       ) : movies.length > 0 ? (
-        <>
-          <Pagination page={page} onPageChange={setPage} hasNext={page < 10} />
+        <PageSection page={page} onPageChange={setPage} hasNext={page < 10}>
           <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
             {movies.map((movie) => (
               <MovieCard key={movie.id} movie={movie} />
             ))}
           </ul>
-          <Pagination page={page} onPageChange={setPage} hasNext={page < 10} />
-        </>
+        </PageSection>
       ) : (
         <p>No movies found.</p>
       )}

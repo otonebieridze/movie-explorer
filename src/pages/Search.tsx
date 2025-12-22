@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSearchMovies } from "../hooks/useSearchMovies";
 import MovieCard from "../components/MovieCard";
 import MovieSkeleton from "../components/MovieSkeleton";
-import Pagination from "../components/Pagination";
+import PageSection from "../components/PageSection";
 
 export default function Search() {
   const [query, setQuery] = useState("");
@@ -35,41 +35,29 @@ export default function Search() {
       {error ? (
         <p className="text-red-600">Error: {error}</p>
       ) : loading ? (
-        <>
-          <Pagination
-            page={page}
-            onPageChange={setPage}
-            hasNext={page < totalPages}
-          />
+        <PageSection
+          page={page}
+          onPageChange={setPage}
+          hasNext={page < totalPages}
+        >
           <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
             {Array.from({ length: 8 }).map((_, i) => (
               <MovieSkeleton key={i} />
             ))}
           </ul>
-          <Pagination
-            page={page}
-            onPageChange={setPage}
-            hasNext={page < totalPages}
-          />
-        </>
+        </PageSection>
       ) : movies.length > 0 ? (
-        <>
-          <Pagination
-            page={page}
-            onPageChange={setPage}
-            hasNext={page < totalPages}
-          />
+        <PageSection
+          page={page}
+          onPageChange={setPage}
+          hasNext={page < totalPages}
+        >
           <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
             {movies.map((movie) => (
               <MovieCard key={movie.id} movie={movie} />
             ))}
           </ul>
-          <Pagination
-            page={page}
-            onPageChange={setPage}
-            hasNext={page < totalPages}
-          />
-        </>
+        </PageSection>
       ) : query ? (
         <p>No movies found for "{query}".</p>
       ) : (
