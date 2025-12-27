@@ -12,7 +12,7 @@ export default function Home() {
   );
 
   useEffect(() => {
-    window.scrollTo({ top: 0 });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [page]);
 
   return (
@@ -33,7 +33,7 @@ export default function Home() {
           </div>
         ) : loading ? (
           <PageSection page={page} onPageChange={setPage} hasNext={page < 10}>
-            <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+            <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
               {Array.from({ length: 12 }).map((_, i) => (
                 <MovieSkeleton key={i} />
               ))}
@@ -41,7 +41,7 @@ export default function Home() {
           </PageSection>
         ) : movies.length > 0 ? (
           <PageSection page={page} onPageChange={setPage} hasNext={page < 10}>
-            <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+            <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
               {movies.map((movie) => (
                 <MovieCard key={movie.id} movie={movie} />
               ))}
