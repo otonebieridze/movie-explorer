@@ -16,7 +16,7 @@ export default function Home() {
   }, [page]);
 
   return (
-    <div className="min-h-screen bg-neutral-50">
+    <div className="min-h-screen">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8">
         <header className="mb-6">
           <h1 className="text-3xl font-semibold text-neutral-900">
