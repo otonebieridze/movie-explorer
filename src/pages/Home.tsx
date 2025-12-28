@@ -16,19 +16,19 @@ export default function Home() {
   }, [page]);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900 transition-colors">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8">
         <header className="mb-6">
-          <h1 className="text-3xl font-semibold text-neutral-900">
+          <h1 className="text-3xl font-semibold text-neutral-900 dark:text-neutral-100">
             Popular movies
           </h1>
-          <p className="mt-2 text-sm text-neutral-600">
+          <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
             Browse trending titles and discover something new.
           </p>
         </header>
 
         {error ? (
-          <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-red-700">
+          <div className="rounded-lg border border-red-200 dark:border-red-400 bg-red-50 dark:bg-red-900/40 p-4 text-red-700 dark:text-red-300">
             Error: {error}
           </div>
         ) : loading ? (
@@ -48,8 +48,8 @@ export default function Home() {
             </ul>
           </PageSection>
         ) : (
-          <div className="rounded-lg border border-neutral-200 bg-white p-8 text-center">
-            <p className="text-neutral-700">No movies found.</p>
+          <div className="rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-8 text-center">
+            <p className="text-neutral-700 dark:text-neutral-300">No movies found.</p>
           </div>
         )}
       </div>

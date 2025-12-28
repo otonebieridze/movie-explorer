@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useMovieDetails } from "../hooks/useMovieDetails";
 import MovieDetailsSkeleton from "../components/MovieDetailsSkeleton";
 import { useFavoritesContext } from "../context/FavoritesContext";
+import { useEffect } from "react";
 
 export default function MovieDetails() {
   const { id } = useParams();
@@ -14,19 +15,23 @@ export default function MovieDetails() {
   const { isFavorite, addFavorite, removeFavorite } = useFavoritesContext();
   const favorite = movie ? isFavorite(movie.id) : false;
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
   return (
-    <div>
+    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900 transition-colors">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-8">
         {error ? (
-          <div className="rounded-lg border border-red-200 bg-red-50 p-8 text-center">
-            <p className="text-red-700">Error: {error}</p>
+          <div className="rounded-lg border border-red-200 dark:border-red-400 bg-red-50 dark:bg-red-900/40 p-8 text-center">
+            <p className="text-red-700 dark:text-red-300">Error: {error}</p>
           </div>
         ) : loading ? (
-          <div className="rounded-lg border border-neutral-200 bg-white p-8 text-center">
+          <div className="rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-8 text-center">
             <MovieDetailsSkeleton />
           </div>
         ) : movie ? (
-          <div className="rounded-xl bg-white shadow-sm overflow-hidden">
+          <div className="rounded-xl bg-white dark:bg-neutral-800 shadow-sm overflow-hidden">
             <div className="flex flex-col md:flex-row">
               <div className="md:w-1/3">
                 <img
@@ -40,16 +45,18 @@ export default function MovieDetails() {
                 />
               </div>
               <div className="md:w-2/3 p-6">
-                <h1 className="text-3xl font-semibold tracking-tight text-neutral-900">
+                <h1 className="text-3xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
                   {movie.title}
                 </h1>
-                <p className="mt-2 text-base text-neutral-600">
+                <p className="mt-2 text-base text-neutral-600 dark:text-neutral-400">
                   Release Date: {movie.release_date}
                 </p>
-                <p className="mt-1 text-sm text-neutral-600">
+                <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
                   Rating: {movie.vote_average}
                 </p>
-                <p className="mt-4 text-neutral-700">{movie.overview}</p>
+                <p className="mt-4 text-neutral-700 dark:text-neutral-300">
+                  {movie.overview}
+                </p>
                 <button
                   onClick={() =>
                     favorite ? removeFavorite(movie.id) : addFavorite(movie)
@@ -66,8 +73,10 @@ export default function MovieDetails() {
             </div>
           </div>
         ) : (
-          <div className="rounded-lg border border-neutral-200 bg-white p-8 text-center">
-            <p className="text-neutral-700">No movie found.</p>
+          <div className="rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-8 text-center">
+            <p className="text-neutral-700 dark:text-neutral-300">
+              No movie found.
+            </p>
           </div>
         )}
       </div>

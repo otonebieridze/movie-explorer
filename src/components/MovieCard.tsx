@@ -11,9 +11,9 @@ export default function MovieCard({ movie }: Props) {
   const favorite = isFavorite(movie.id);
 
   return (
-    <li className="relative rounded-xl bg-white shadow-sm overflow-hidden transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-md">
+    <li className="relative rounded-xl bg-white dark:bg-neutral-800 shadow-sm overflow-hidden transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-md">
       <Link to={`/movie/${movie.id}`}>
-        <div className="bg-neutral-100">
+        <div className="bg-neutral-100 dark:bg-neutral-700">
           <img
             src={
               movie.poster_path
@@ -29,10 +29,10 @@ export default function MovieCard({ movie }: Props) {
           </div>
         </div>
         <div className="p-3">
-          <h3 className="text-sm font-medium text-neutral-900">
+          <h3 className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
             {movie.title}
           </h3>
-          <p className="mt-1 text-xs text-neutral-600">
+          <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
             {movie.release_date?.slice(0, 4) ?? "—"}
           </p>
         </div>

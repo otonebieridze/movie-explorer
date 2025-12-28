@@ -18,13 +18,13 @@ export default function Search() {
   }, [page]);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900 transition-colors">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8">
         <header className="mb-6">
-          <h1 className="text-3xl font-semibold tracking-tight text-neutral-900">
+          <h1 className="text-3xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
             Search movies
           </h1>
-          <p className="mt-2 text-sm text-neutral-600">
+          <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
             Find your favorite titles and explore new ones.
           </p>
         </header>
@@ -37,11 +37,11 @@ export default function Search() {
             setPage(1);
           }}
           placeholder="Search for a movie..."
-          className="w-full rounded-lg border border-neutral-300 px-4 py-2 mb-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 px-4 py-2 mb-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-colors"
         />
 
         {error ? (
-          <p className="text-red-600">Error: {error}</p>
+          <p className="text-red-600 dark:text-red-400">Error: {error}</p>
         ) : loading ? (
           <PageSection
             page={page}
@@ -67,12 +67,14 @@ export default function Search() {
             </ul>
           </PageSection>
         ) : query ? (
-          <div className="rounded-lg border border-neutral-200 bg-white p-8 text-center">
-            <p className="text-neutral-700">No movies found for "{query}".</p>
+          <div className="rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-8 text-center">
+            <p className="text-neutral-700 dark:text-neutral-300">
+              No movies found for "{query}".
+            </p>
           </div>
         ) : (
-          <div className="rounded-lg border border-neutral-200 bg-white p-8 text-center">
-            <p className="text-neutral-700">
+          <div className="rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-8 text-center">
+            <p className="text-neutral-700 dark:text-neutral-300">
               Start typing to search for movies.
             </p>
           </div>
