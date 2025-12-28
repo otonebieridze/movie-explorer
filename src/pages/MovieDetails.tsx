@@ -15,7 +15,7 @@ export default function MovieDetails() {
   const favorite = movie ? isFavorite(movie.id) : false;
 
   return (
-    <div className="min-h-screen">
+    <div>
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-8">
         {error ? (
           <div className="rounded-lg border border-red-200 bg-red-50 p-8 text-center">
